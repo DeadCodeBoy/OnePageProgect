@@ -10,66 +10,110 @@
 </head>
 <body>
     <header class="header">
-            <a href="#" class="header__logo"></a>
-            <nav class="header__nav">
-                <ul class="header__list">
-                    <li class="header__item"><a class="header__link" href="#">Home</a></li>
-                    <li>|</li>
-                    <li class="header__item"><a class="header__link" href="#">Products</a></li>
-                    <li>|</li>
-                    <li class="header__item"><a class="header__link" href="#">FAQ</a></li>
-                    <li>|</li>
-                    <li class="header__item"><a class="header__link" href="#">Contacts</a></li>
-                </ul>
-            </nav>
+        <div class="container">
+            <div class="header__wrapper">
+                 <a href="#" class="header__logo"></a>
+                <nav class="header__nav">
+                    <ul class="header__list">
+                        <li class="header__item"><a class="header__link" href="#Home">Home</a></li>
+                        <li>|</li>
+                        <li class="header__item"><a class="header__link" href="#Products">Products</a></li>
+                        <li>|</li>
+                        <li class="header__item"><a class="header__link" href="#FAQ">FAQ</a></li>
+                        <li>|</li>
+                        <li class="header__item"><a class="header__link" href="#Contacts">Contacts</a></li>
+                    </ul>
+                </nav>
+            </div>
+
+
+        </div>
+
     </header>
 
     <section class="gallary" id="gallary"></section>
     
-    <section>
-        <div class="about">
-            <img class="about__img" src="images/about.png" alt="about">
+    <section class="about">
+        <div class="container">
+            <h2 id="Home">ABOUT US</h2>
+            <div class="about__wrapper">
+                    <div class="about__text">
+                        <p>"On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain.</p>
+                    </div> 
+                    <div >
+                        <img class="about__img" src="images/about.png" alt="about">
+                    </div>
+            </div>
         </div>
     </section>
 
-<section>
-    <div class="product">
-        <h2 class="title">Products</h2>
-        <div class="card">
-            <div class="card__item">
-                <div class="card__cover">
-                    <img class="card__img" src="images/product_img.png" alt="">
+<section class="product">
+        <div class="container">
+            <div class="product__wrapper">
+                <h2 class="title" id="Products">Products</h2>
+                <div class="cards">
+                    <div class="card__item">
+                        <div class="card__cover">
+                            <img class="card__img" src="images/product_img.png" alt="">
+                        </div>
+                        <div class="card__info">
+                            <p class="card__name">Name Product 1</p>
+                        </div>
+                        <a href="#" class="card__button">Add to cart</a>
+                    </div>
+                    <div class="card__item">
+                        <div class="card__cover">
+                            <img  class="card__img" src="images/product_img.png" alt="">
+                        </div>
+                        <div class="card__info">
+                            <p class="card__name">Name Product 1</p>
+                        </div>
+                        <a href="#" class="card__button">Add to cart</a>
+                    </div>
+                    <div class="card__item">
+                        <div class="card__cover">
+                            <img class="card__img" src="images/product_img.png" alt="">
+                        </div>
+                        <div class="card__info">
+                            <p class="card__name">Name Product 1</p>
+                        </div>
+                        <a href="#" class="card__button">Add to cart</a>
+                    </div>
+                    <div class="card__item">
+                        <div class="card__cover">
+                            <img class="card__img" src="images/product_img.png" alt="">
+                        </div>
+                        <div class="card__info">
+                            <p class="card__name">Name Product 1</p>
+                        </div>
+                        <a href="#" class="card__button">Add to cart</a>
+                    </div>
+                    <div class="card__item">
+                        <div class="card__cover">
+                            <img  class="card__img" src="images/product_img.png" alt="">
+                        </div>
+                        <div class="card__info">
+                            <p class="card__name">Name Product 1</p>
+                        </div>
+                        <a href="#" class="card__button">Add to cart</a>
+                    </div>
+                    <div class="card__item">
+                        <div class="card__cover">
+                            <img class="card__img" src="images/product_img.png" alt="">
+                        </div>
+                        <div class="card__info">
+                            <p class="card__name">Name Product 1</p>
+                        </div>
+                        <a href="#" class="card__button">Add to cart</a>
+                    </div>
                 </div>
-                <div class="card__info">
-                    <p class="card__name">Name Product 1</p>
-                </div>
-                <a href="#" class="card_button">Add to cart</a>
-            </div>
-            <div class="card__item">
-                <div class="card__cover">
-                    <img  class="card__img" src="images/product_img.png" alt="">
-                </div>
-                <div class="card__info">
-                    <p class="card__name">Name Product 1</p>
-                </div>
-                <a href="#" class="card_button">Add to cart</a>
-            </div>
-            <div class="card__item">
-                <div class="card__cover">
-                    <img class="card__img" src="images/product_img.png" alt="">
-                </div>
-                <div class="card__info">
-                    <p class="card__name">Name Product 1</p>
-                </div>
-                <a href="#" class="card_button">Add to cart</a>
             </div>
         </div>
-    </div>
 </section>
 
 <section>
     <div class="faq">
-        <h2 class="title">FAQ</h2>
+        <h2 class="title" id="FAQ" >FAQ</h2>
         <div class='accordion'>
             <div class='accordion-item' >
                 <div class='accordion-item-header' data-item="1" >
@@ -115,6 +159,37 @@
                 </div>
             </div>
         </div>
+</section>
+
+<section class="contacts">
+    <div class="container">
+        <h2 class="title" id="Contacts">Contacts</h2>
+            <div class="contacts_wrapper">
+                <div class="contacts_label">
+                    <img class="label_img"  src="images/contact_phone.png" alt="">
+                                        +34  334617234
+                    </div>
+                        <div class="contact__input">
+                            <input class="input" type="text" placeholder="Name">
+                        </div>
+                        <div class="contacts_label">
+                            <img class="label_img" src="images/contact_mail.png" alt="">
+                            supervitamines@support.su
+                        </div>
+                        <div class="contact__input">
+                            <input class="input" type="text" placeholder="Email">
+                        </div>    
+                        <div class="contacts_label">
+                            "On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire,
+                        </div>
+                        <div class="contact__input">
+                            <input class="input" type="text" placeholder="Your questions ">
+             
+            </div>
+                
+            <a href="#" class="contact__button">Send</a>
+        </div>
+    </div>
 </section>
 
 </body>
