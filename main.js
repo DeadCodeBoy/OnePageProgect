@@ -4,9 +4,7 @@ class Gallary {
   slideIndex = 0;
   stepPercent = 0;
   items = [];
-  constructor(selector, options) {
-    this.gallary = document.querySelector(selector);
-    // this.wrapper = this.gallary.querySelector(options.wrapper);
+  constructor(options) {
     this.slideLength = options.gallaryItems.items.length;
     this.stepPercent = Number((100 / this.slideLength).toFixed(3));
     this.init(options);
@@ -23,17 +21,14 @@ class Gallary {
 
     this.buttonPrev = this.createElement('button', {
       className: 'prev',
-      // text: 'prev',
-      attr: {
+        attr: {
         ['data-btn']: 'prev',
       },
     });
 
     this.buttonNext = this.createElement('button', {
       className: 'next',
-      // text: 'next',
-      // scr: '/images/next.png',
-      attr: {
+        attr: {
         ['data-btn']: 'next',
       },
     });
@@ -73,9 +68,7 @@ class Gallary {
   }
 
   initListeners() {
-    //debugger
     this.gallary.addEventListener('click', (event) => {
-      // console.log(event.target);
       if (event.target.dataset?.btn === 'prev') this.prev();
       if (event.target.dataset?.btn === 'next') this.next();
     });
@@ -106,30 +99,16 @@ class Gallary {
   }
 }
 
-new Gallary('.gallary', {
-  root: 'gallary',
-  wrapper: 'gallary__items__wrapper',
-  selectorItems: 'gallary__item',
-  buttons: true, // swipe
-  autoslide: false, // автоматический слайд
-  gallaryItems: {
-    className: 'gallary__item',
-    items: ['./img/1.png', './img/2.png', './img/3.png'],
-  },
-});
+
 
 class Faq {
   activeElement = null;
-
   constructor(selector) {
-    this.init(selector);
+    this.faq = document.querySelector(selector);
     this.listeners();
   }
 
-  init(selector) {
-    this.faq = document.querySelector(selector);
-  }
-
+  
   listeners() {
     this.faq.addEventListener('click', (event) => {
       const target = event.target;
@@ -146,141 +125,99 @@ class Faq {
 }
 new Faq('.accordion');
 
-
-let menu = document.querySelector('.header__link');
-menu.addEventListener('click', function(e){
-  let elem = e.target.closest('a');
-  
-  if(elem !== null && menu.contains(elem)){
-    e.preventDefault();
-    console.log(this.hash);
-    let target = document.querySelector(this.hash);
-    let coords = target.getBoundingClientRect();
-    let top = window.scrollY + coords.top;
-    window.scrollTo({
-      top,
-      behavior:'smooth'
-    });
-  }
+new Gallary( {
+  root: 'gallary',
+  wrapper: 'gallary__items__wrapper',
+  selectorItems: 'gallary__item',
+  gallaryItems: {
+    className: 'gallary__item',
+    items: ['./img/1.png', './img/2.png', './img/3.png'],
+  },
 });
 
-const products =[
-  {
-    name: 'https://willpower.su/image/cache/catalog/sajt08.02.2020/vitamind32000iu120caps1-1200x800.jpg', 
-    price: 2000,
-    discont: 10
-},
-{
-  name: 'https://img.herbup.ru/images/products/1/782/696623886/8.jpg', 
-  price: 2000,
-  discont: 10
-},
-{
-  name: 'https://www.fitbynet.com/wp-content/uploads/2019/06/51cY2CZlMkL._SY679_.jpg', 
-  price: 2000,
-  discont: 10
+let cart ={
+  p1:0,
+  p2:0,
+  p3:0,
 }
-] 
-  
-const server = {
-  cards(line = 1) {
-    const finished = line >= 1
-    const next = finished ? null : line + 1
-    const cards = Array(2).fill(products)
-    return new Promise((resolve) => {
+
+const cardsProduct = document.querySelector('.cards');
+const preloader = document.querySelector('.preloader');
+
+const loading = (isLoad) => {
+  preloader.classList[!isLoad ? 'add' : 'remove']('preloader--hide');
+};
+
+const getProducts = async function () {
+  loading(true);
+  return new Promise((result) => {
+    const idT = setTimeout(() => {
+      fetch('./products.json').then((data) => {
+        result(data.json());
+      });
+      loading(false);
+      clearTimeout(idT);
+    }, 2000);
+  });
+};
+
+getProducts()
+  .then((products) => {
+    if (!products?.length) {
+      cardsProduct.innerHTML = `<div>Что то пошло не так</div>`;
+      return;
+    }
+      cardsProduct.innerHTML = products.map(getTemplate).join('');
       
-      setTimeout(() => {
-        resolve({ cards, next })
-      }, 2000)
-    })
-  },
-}
-
- async function checkPosition() {
-  const height = document.body.offsetHeight
-  const screenHeight = window.innerHeight
-  const scrolled = window.scrollY
-  const threshold = height - screenHeight/0.9
-  const position = scrolled + screenHeight
-  if (position >= threshold) {
-    await fetchData()
-  }
-}
-
-function throttle(callee, timeout) {
-  let timer = null
-
-  return function perform(...args) {
-    if (timer) return
-
-    timer = setTimeout(() => {
-      callee(...args)
-
-      clearTimeout(timer)
-      timer = null
-    }, timeout)
-  }
-}
-
-
-;(() => {
-  window.addEventListener('scroll', throttle(checkPosition, 250))
-  window.addEventListener('resize', throttle(checkPosition, 250))
-})()
-
-let nextPage = 1;
-let isLoading = false;
-let shouldLoad = true;
-
-async function fetchData() {
-  if (isLoading || !shouldLoad) return;
-  isLoading = true;
-  const { cards, next } = await server.cards(nextPage);
-  cards.forEach(appendData);
-  nextPage = next;
-  if (!next) shouldLoad = false;
-  isLoading = false;
-
-}
-
-function appendData(loadData) {
-  if (!loadData) return
-  const main = document.querySelector('.cards')
-  const cardNode = composeData(loadData)
-  main.append(cardNode)
-}
-
-function composeData(loadData) {
-  let block;
-  let key;
-  if (!loadData) return
-  const template = document.querySelectorAll('.card__item')
-  Array.from(template).forEach((file) => {
-    file.classList.add ('active');
-    preloader.classList.add('preloader--hide')
-  })
+      cardsProduct.addEventListener('click', (event) => {
+        event.preventDefault();
+        if (event.target.classList.contains('card__button') ) {
+          toastr.success('added to cart')
+          addFunction(event.target.dataset.id);
+          
+        }
+      } )
+  });
   
-  let list = document.querySelector('.cards');
-  console.log(loadData);
-  
-  for (key in loadData) {
-  list.innerHTML = JSON.stringify(loadData)
-        `
-          <div class="card__item">
-              <div class="card__cover">
-              <img class="card__img" src=${loadData[key].name } alt="">
-              </div>
-              <div class="card__info">
-                  <p class="card__name">${loadData[key].price}</p>
-              </div>
-              <a href="#" class="card__button">Add to cart</a>
-          </div>
-        `
-  
+  const addFunction = (id) => {
+    cart[id]++
+    console.log(cart);
   }
-  return list;
+
+function getTemplate({ id, img, price, name }) {
+  return `
+    <div class="card__item">
+      <div class="card__cover">
+          <img  class="card__img" src=${img} alt="">
+      </div>
+      <div class="card__info">
+          <p class="card__name">${name}</p>
+          <div class="card__price">${price}</div>
+      </div>
+      <a href="#" class="card__button" data-id="${id}">Add to cart</a>
+  </div>
+  `;
 }
 
+let message ={}
 
+let form = document.querySelector('.form')
+let inputs = form.querySelectorAll('.input') 
+
+form.addEventListener('submit', function(e) {
+  e.preventDefault();
+  const name = e.target.name.value
+  message['name'] = name;
+  const email = e.target.email.value
+  message['email'] = email;
+  const question = e.target.question.value
+  message['question'] = question;
+  toastr.info('your message has been recived')
+  console.log(message);
+ } )
+
+
+
+  
 
 

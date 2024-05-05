@@ -3,6 +3,8 @@
 :root {
   --width-container: 1180px;
   --color-purple: #674db1;
+  behavior: smooth;
+ 
 }
 
 * {
@@ -11,6 +13,10 @@
   border: none;
   outline: none;
   box-sizing: border-box;
+}
+
+html {
+  scroll-behavior:smooth;
 }
 
 body {
@@ -27,7 +33,12 @@ h2 {
 font-size: 67px;
 color:#b1a0be;
 text-decoration: none;
+}
 
+p {
+margin-top: 0;
+margin-bottom: 1rem;
+align-self: center;
 }
 
 .container {
@@ -155,11 +166,6 @@ margin-top: 15px;
 
 .card__item{
   
-  display: none;
-  
-}
-
-.card__item.active {
   display: flex;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 20px;
@@ -168,6 +174,7 @@ margin-top: 15px;
   border: 2px solid var(--color-purple);
   flex: calc((100% / 3) - 120px);
   flex-direction: column;
+  
 }
 
 .card__cover {
@@ -177,19 +184,23 @@ margin-top: 15px;
   height: 200px;
 }
 .card__img {
-  /* width: 100%;
-    height: 380px; */
   position: absolute;
-
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  /* object-fit: cover; */
 }
 .card__name {
   text-align: center;
   font-size: 20px;
   color: #674db1;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+.card__price {
+  text-align: center;
+  font-size: 20px;
+  color: #0e8e3f;
   font-family: 'Poppins', sans-serif;
   font-weight: 700;
   font-style: normal;
@@ -248,7 +259,6 @@ margin-top: 15px;
   display: none;
   padding: 1rem;
   line-height: 1.5rem;
-  /* border-top: 1px solid #34495e; */
 }
 .accordion-item-header.active + .accordion-item-body {
   display: block;
@@ -257,53 +267,81 @@ margin-top: 15px;
 
 .contacts_wrapper {
   margin-top: 5%;
-  grid-template-columns: .3fr .7fr;
-  grid-column-gap: 10%;
-  grid-row-gap: 10%;
-  display: grid;
-}
+  display: flex;
+  float: left;
+  width: 30%;
+  flex-direction: column; 
+  flex-wrap: wrap;
+  }
 
 .contacts_label {
   display: flex;
   font-size: 24;
   font-weight: 700;
-  width: 100%;
-  align-items: center;
+  height: fit-content;
+  padding-top: 2%;
+  padding-bottom: 2%;
+   
 }
 
 .label_img {
-padding-right: 5%;
+  align-self:center;
+ padding-right: 10%; 
 }
 
 .contact__input {
-  display: flex;
+  padding-top: 6%;
+  padding-bottom: 2%;
+  padding-left: 3%;
+  float: right;
+  width: 70%;
 }
 
 .input {
+  padding: 1%;
+  margin-bottom: 3%;
+  margin-top: 0.5%;
   border-radius: 10px;
   text-align: left;
   color: #b1a0be;
   border: solid 1px;
-  width: 85%; 
+  height: 100%;
+  width: 63%;
   font-size: 20;
   font-weight: 700;
   background-color:  #f3f4ff;
-  padding-left: 3%;
+  margin-left: 1%;
 }
+.input__question {
+  padding: 1% 9% 9% 1%;
+  margin-bottom: 3%;
+  margin-top: 0.5%;
+  border-radius: 10px;
+  text-align: left;
+  color: #b1a0be;
+  border: solid 1px;
+  height: 100%;
+  width: 63%;
+  font-size: 20;
+  font-weight: 700;
+  background-color:  #f3f4ff;
+  margin-left: 1%;
+}
+
 .contact__button{
-  display: flex;
-  text-align: center;
-  text-decoration: none;
   font-size: 20px;
   color: #ffff;
-  border-radius: 10px;
+  border-radius: 30px;
   padding: 11px 68px;
   background: #674db1;
-  justify-self:end;
-  grid-column-start: 2;
-  width: 25%;
-  margin-right: 15%;
+  justify-self: end;
 }
+
+.contact__btn {
+  padding-left: 60%;
+  padding-bottom: 5%;
+}
+
  @keyframes loading {
   0% {transform: translate(-50%, -50%) rotate(0deg); }
   100% { transform: translate(-50%,-50%) rotate(360deg);}
@@ -343,7 +381,6 @@ padding-right: 5%;
 }
 .preloader {
   position: relative;
-  /* position: absolute;*/
   left: 0;
   top: 0;
   width: 100%;
@@ -367,5 +404,16 @@ padding-right: 5%;
    position: relative;
  }
 
+ @media (max-width: 880px) {
+  .about__img {
+    display: none;
+  }
+  .gallary {
+    display: none;
+  }
+  .contact__input {
+    float: none;
+  }
+ }
 
 
